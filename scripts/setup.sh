@@ -92,7 +92,7 @@ OUTPUT_SOLO=${BASEDIR}/solo.rb
 [ -d /tmp/chef-solo ] || mkdir -p /tmp/chef-solo
 cat<<EOF>$OUTPUT_SOLO
 file_cache_path "/tmp/chef-solo"
-cookbook_path "${BASEDIR}/cookbooks"
+cookbook_path ["${BASEDIR}/cookbooks","${BASEDIR}/site-cookbooks"]
 data_bag_path "${BASEDIR}/data_bags"
 role_path "${BASEDIR}/roles"
 EOF
