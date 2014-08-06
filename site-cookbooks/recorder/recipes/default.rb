@@ -56,58 +56,75 @@ file "/etc/modprobe.d/pt3-blacklist.conf" do
 	action :create
 end
 
-execute 'download & decompress files' do
+execute 'pt3-driver' do
+	command <<-EOC
+		rm -rf /tmp/chef-recorder
+		mkdir /tmp/chef-recorder
+		cd /tmp/chef-recorder
+		
+		wget https://www.dropbox.com/s/qq1vpzbo8cdujrb/pt3-driver.zip
+		unzip pt3-driver.zip
+		rm -rf pt3-driver.zip
+		
+		cd /tmp/chef-recorder/pt3-master/
+		make && make install
+	EOC
+	not_if "lsmod | grep pt3"
+end
+
+execute 'pt1-recpt1' do
+	command <<-EOC
+		rm -rf /tmp/chef-recorder
+		mkdir /tmp/chef-recorder
+		cd /tmp/chef-recorder
+		
+		wget https://www.dropbox.com/s/0c95cgy9y8020ex/pt1-c44e16dbb0e2-arib25.tar.gz
+		tar xzf pt1-c44e16dbb0e2-arib25.tar.gz
+		rm -rf pt1-c44e16dbb0e2-arib25.tar.gz
+		
+		cd /tmp/chef-recorder/pt1-c44e16dbb0e2-arib25/
+		make && make install
+		
+		rm -rf /tmp/chef-recorder
+		mkdir /tmp/chef-recorder
+		cd /tmp/chef-recorder
+
+		wget https://www.dropbox.com/s/z2otaydwd0kgx7m/pt1-c9b1d21c5035.tar.gz
+		tar xzf pt1-c9b1d21c5035.tar.gz
+		rm -rf pt1-c9b1d21c5035.tar.gz
+		
+		cd /tmp/chef-recorder/pt1-c9b1d21c5035/recpt1/
+		./autogen.sh && ./configure --enable-b25 && make && make install
+	EOC
+	not_if "recpt1 -v"
+end
+
+execute 'epgdump' do
 	command <<-EOC
 		rm -rf /tmp/chef-recorder
 		mkdir /tmp/chef-recorder
 		cd /tmp/chef-recorder
 
-		wget https://www.dropbox.com/s/qq1vpzbo8cdujrb/pt3-driver.zip
-		unzip pt3-driver.zip
-		rm -rf pt3-driver.zip
-
-		wget https://www.dropbox.com/s/0c95cgy9y8020ex/pt1-c44e16dbb0e2-arib25.tar.gz
-		tar xzf pt1-c44e16dbb0e2-arib25.tar.gz
-		rm -rf pt1-c44e16dbb0e2-arib25.tar.gz
-
-		wget https://www.dropbox.com/s/z2otaydwd0kgx7m/pt1-c9b1d21c5035.tar.gz
-		tar xzf pt1-c9b1d21c5035.tar.gz
-		rm -rf pt1-c9b1d21c5035.tar.gz
-
 		wget https://www.dropbox.com/s/q2upk31ib4nvh42/epgdump.tar.gz
 		tar xzf epgdump.tar.gz
 		rm -rf epgdump.tar.gz
+		
+		cd /tmp/chef-recorder/epgdump/
+		make && make install
+	EOC
+	not_if "epgdump"
+end
+
+=begin
+execute 'epgrec' do
+	command <<-EOC
+		rm -rf /tmp/chef-recorder
+		mkdir /tmp/chef-recorder
+		cd /tmp/chef-recorder
 
 		wget https://www.dropbox.com/s/n9o8gwavy7z60yz/epgrec_UNA_140427.tar.gz
 		tar xzf epgrec_UNA_140427.tar.gz
 		rm -rf epgrec_UNA_140427.tar.gz
 	EOC
-end	
-
-execute 'pt3-driver' do
-	command <<-EOC
-		cd /tmp/chef-recorder/pt3-master/
-		make && make install
-	EOC
 end
-
-execute 'pt1-arib25' do
-	command <<-EOC
-		cd /tmp/chef-recorder/pt1-c44e16dbb0e2-arib25/
-		make && make install
-	EOC
-end
-
-execute 'pt1-recpt1' do
-	command <<-EOC
-		cd /tmp/chef-recorder/pt1-c9b1d21c5035/recpt1/
-		./autogen.sh && ./configure --enable-b25 && make && make install
-	EOC
-end
-
-execute 'epgdump' do
-	command <<-EOC
-		cd /tmp/chef-recorder/epgdump/
-		make && make install
-	EOC
-end
+=end
