@@ -13,11 +13,16 @@
 	end
 }
 
+service 'php5-fpm' do
+	action :enabled
+end
+
 cookbook_file '/etc/php5/cli/php.ini' do
 	source 'cli-php.ini'
 	owner 'root'
 	group 'root'
 	mode '0644'
+	notifies :restart, "service[php5-fpm]", :delayed
 end
 
 cookbook_file '/etc/php5/fpm/php.ini' do
@@ -25,6 +30,7 @@ cookbook_file '/etc/php5/fpm/php.ini' do
 	owner 'root'
 	group 'root'
 	mode '0644'
+	notifies :restart, "service[php5-fpm]", :delayed
 end
 
 cookbook_file '/etc/php5/fpm/pool.d/www.conf' do
@@ -32,4 +38,5 @@ cookbook_file '/etc/php5/fpm/pool.d/www.conf' do
 	owner 'root'
 	group 'root'
 	mode '0644'
+	notifies :restart, "service[php5-fpm]", :delayed
 end
