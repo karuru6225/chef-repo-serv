@@ -8,6 +8,8 @@
 		"recipe[raid]",
 		"recipe[file_server]",
 		"recipe[recorder]",
+		"recipe[ups-tools]",
+		"recipe[monitor]",
 		"recipe[tmux]"
 	]
 }

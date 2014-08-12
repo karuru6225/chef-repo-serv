@@ -7,11 +7,22 @@
 # All rights reserved - Do Not Redistribute
 #
 
-%w(pcscd libpcsclite1 libpcsclite-dev libccid pcsc-tools git build-essential autoconf unzip pkg-config).each{|name|
+include_recipe 'nginx::default'
+include_recipe 'php::default'
+
+
+%w(pcscd libpcsclite1 libpcsclite-dev libccid pcsc-tools git build-essential autoconf unzip pkg-config ntpdate ffmpeg).each{|name|
 	package name do
 		action :install
 	end
 }
+
+file "/etc/cron.d/ntpdate" do
+	owner 'root'
+	group 'root'
+	mode 0644
+	content "43 * * * * root ntpdate ntp.jst.mfeed.ad.jp"
+end
 
 package 'linux-headers-' + node[:os_version] do
 	action :install
@@ -62,7 +73,7 @@ execute 'pt3-driver' do
 		mkdir /tmp/chef-recorder
 		cd /tmp/chef-recorder
 		
-		wget https://www.dropbox.com/s/qq1vpzbo8cdujrb/pt3-driver.zip
+		wget https://www.dropbox.com/s/79kb8qgk7csq66u/pt3-driver.zip
 		unzip pt3-driver.zip
 		rm -rf pt3-driver.zip
 		
@@ -78,7 +89,7 @@ execute 'pt1-recpt1' do
 		mkdir /tmp/chef-recorder
 		cd /tmp/chef-recorder
 		
-		wget https://www.dropbox.com/s/0c95cgy9y8020ex/pt1-c44e16dbb0e2-arib25.tar.gz
+		wget https://www.dropbox.com/s/el2x9qkdi0wbimi/pt1-c44e16dbb0e2-arib25.tar.gz
 		tar xzf pt1-c44e16dbb0e2-arib25.tar.gz
 		rm -rf pt1-c44e16dbb0e2-arib25.tar.gz
 		
@@ -89,14 +100,14 @@ execute 'pt1-recpt1' do
 		mkdir /tmp/chef-recorder
 		cd /tmp/chef-recorder
 
-		wget https://www.dropbox.com/s/z2otaydwd0kgx7m/pt1-c9b1d21c5035.tar.gz
+		wget https://www.dropbox.com/s/jr3igz6vh1c8edw/pt1-c9b1d21c5035.tar.gz
 		tar xzf pt1-c9b1d21c5035.tar.gz
 		rm -rf pt1-c9b1d21c5035.tar.gz
 		
 		cd /tmp/chef-recorder/pt1-c9b1d21c5035/recpt1/
 		./autogen.sh && ./configure --enable-b25 && make && make install
 	EOC
-	not_if "recpt1 -v"
+	not_if { File.exists?("/usr/local/bin/recpt1") }
 end
 
 execute 'epgdump' do
@@ -105,26 +116,77 @@ execute 'epgdump' do
 		mkdir /tmp/chef-recorder
 		cd /tmp/chef-recorder
 
-		wget https://www.dropbox.com/s/q2upk31ib4nvh42/epgdump.tar.gz
+		wget https://www.dropbox.com/s/6jt2743vg3atc5t/epgdump.tar.gz
 		tar xzf epgdump.tar.gz
 		rm -rf epgdump.tar.gz
 		
 		cd /tmp/chef-recorder/epgdump/
 		make && make install
 	EOC
-	not_if "epgdump"
+	not_if { File.exists?("/usr/local/bin/epgdump") }
 end
 
-=begin
+execute 'edit at.deny' do
+	command "sed -i 's/www-data//g' /etc/at.deny"
+	only_if 'grep www-data /etc/at.deny'
+end
+
+
+password = Chef::EncryptedDataBagItem.load("mysql", "password");
+node.set['mysql']['server_root_password'] = password['root']
+node.set['mysql']['version'] = '5.5'
+node.set['mysql']['port'] = '3306'
+node.set['mysql']['port'] = '3306'
+
+include_recipe 'mysql::server'
+
+execute 'create database' do
+	command "mysql -u root -p" + password['root'] + " -e 'create database epgrec'"
+	not_if "mysql -u root -p" + password['root'] + " -e 'show databases' | grep epgrec"
+end
+
+execute 'create user' do
+	command "mysql -u root -p" + password['root'] + " -D mysql -e \"grant all on epgrec.* to epgrec@localhost identified by '" + password['epgrec']  + "'\""
+	not_if "mysql -u root -p" + password['root'] + " -D mysql -e 'select User from user' | grep epgrec"
+	notifies :restart, "mysql_service[default]", :delayed
+end
+
 execute 'epgrec' do
 	command <<-EOC
-		rm -rf /tmp/chef-recorder
-		mkdir /tmp/chef-recorder
-		cd /tmp/chef-recorder
+		cd /var/www
 
-		wget https://www.dropbox.com/s/n9o8gwavy7z60yz/epgrec_UNA_140427.tar.gz
+		wget https://www.dropbox.com/s/0vpmssp00paznxu/epgrec_UNA_140427.tar.gz
 		tar xzf epgrec_UNA_140427.tar.gz
 		rm -rf epgrec_UNA_140427.tar.gz
+		mv epgrec_UNA_140427 epgrec
+		chown -R www-data:www-data epgrec
+
+		cd epgrec
+		chmod 777 cache templates_c video thumbs settings
 	EOC
+	not_if "test -d /var/www/epgrec"
 end
-=end
+
+cookbook_file '/var/www/epgrec/config.php' do
+	source 'config.php'
+	owner 'www-data'
+	group 'www-data'
+	mode '0755'	
+end
+
+settings = Chef::EncryptedDataBagItem.load("recorder", "settings");
+template '/var/www/epgrec/settings/config.xml' do
+	source 'config.xml.erb'
+	owner 'www-data'
+	group 'www-data'
+	mode '0644'
+	variables({
+		:install_url => settings['install_url'],
+		:bs_tuners => settings['bs_tuners'],
+		:gr_tuners => settings['gr_tuners'],
+		:db_host => settings['db_host'],
+		:db_name => settings['db_name'],
+		:db_user => settings['db_user'],
+		:db_pass => password['epgrec']
+	})
+end

@@ -9,16 +9,14 @@
 
 case node['platform_family']
 when "debian"
-	package "nfs-kernel-server" do
-		action :install
-	end
+	%w(nfs-kernel-server samba smartmontools).each{|name|
+		package name do
+			action :install
+		end
+	}
 	
 	service "nfs-kernel-server" do
 		action [:enable]
-	end
-
-	package "samba" do
-		action :install
 	end
 
 	service "samba" do
