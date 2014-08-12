@@ -1,0 +1,15 @@
+{
+  "id": "settings",
+  "email": {
+    "encrypted_data": "wMCag+jHQ3MAfO2rvh+Oyo6NQZyZMWZOFzuEIkynEq5bfYWKqjqsaJBrNJuy\nmNK2\n",
+    "iv": "IR7iU2EdqJb6OHJMMNN7rA==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "password": {
+    "encrypted_data": "9wMtJ193Rh+NVUyNEvPs/7t9qOkom8SAYsru35wlZUXVrCBSI4J5y5YLdIBN\nPn2V\n",
+    "iv": "Hgih9AxuWKaJKWB/+ALnEQ==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
