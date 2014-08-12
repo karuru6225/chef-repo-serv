@@ -190,3 +190,10 @@ template '/var/www/epgrec/settings/config.xml' do
 		:db_pass => password['epgrec']
 	})
 end
+
+cookbook_file '/etc/cron.d/shepherd' do
+	source 'shepherd'
+	owner 'root'
+	group 'root'
+	mode '0644'
+end

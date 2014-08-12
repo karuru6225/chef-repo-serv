@@ -26,3 +26,10 @@ cookbook_file '/etc/php5/fpm/php.ini' do
 	group 'root'
 	mode '0644'
 end
+
+cookbook_file '/etc/php5/fpm/pool.d/www.conf' do
+	source 'www.conf'
+	owner 'root'
+	group 'root'
+	mode '0644'
+end
