@@ -14,7 +14,7 @@
 }
 
 service 'php5-fpm' do
-	action :enabled
+	action :enable
 end
 
 cookbook_file '/etc/php5/cli/php.ini' do

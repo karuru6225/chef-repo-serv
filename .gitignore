@@ -1,2 +1,5 @@
 /cookbooks/
-.bundle
+/.bundle
+*.lock
+data_bag_key
+solo.rb
