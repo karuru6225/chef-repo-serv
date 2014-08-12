@@ -86,20 +86,4 @@ rm -rf chef-repo-serv
 git clone https://github.com/karuru6225/chef-repo-serv.git
 cd chef-repo-serv
 
-BASEDIR=`pwd`
-
-OUTPUT_SOLO=${BASEDIR}/solo.rb
-[ -d /tmp/chef-solo ] || mkdir -p /tmp/chef-solo
-cat<<EOF>$OUTPUT_SOLO
-file_cache_path "/tmp/chef-solo"
-cookbook_path ["${BASEDIR}/cookbooks","${BASEDIR}/site-cookbooks"]
-data_bag_path "${BASEDIR}/data_bags"
-role_path "${BASEDIR}/roles"
-EOF
-
-rbenv rehash
-#bundle config --local build.nokogiri --use-system-libraries
-
-bundle install --path ./.bundle/gems --binstubs ./.bundle/bin
-rbenv rehash
 
