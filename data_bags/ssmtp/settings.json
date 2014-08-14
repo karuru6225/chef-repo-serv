@@ -1,14 +1,38 @@
 {
   "id": "settings",
   "email": {
-    "encrypted_data": "wMCag+jHQ3MAfO2rvh+Oyo6NQZyZMWZOFzuEIkynEq5bfYWKqjqsaJBrNJuy\nmNK2\n",
-    "iv": "IR7iU2EdqJb6OHJMMNN7rA==\n",
+    "encrypted_data": "zWjKDgmXhSbhvzXUcIlsm2l7iej+efmJG7DyVK+uDPFDgT/zciEIY6Yqe3Uq\nlTXc\n",
+    "iv": "0+RhcRzNiM5OqkEInfj4BQ==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "smtp": {
+    "encrypted_data": "4RH9Msk2AAO+LZ1DKAGVCWxo9DQfITbMkIM5jaweTyveuBjglAiuMWSBKd49\n7uIP\n",
+    "iv": "e8REvR7bLYunpqiukwpS6w==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "hostname": {
+    "encrypted_data": "fnT4vVHP1lPhamxOjOW70wk53gQXKzPKZ74kXf7zLTdXgB9nsckqyTwycli0\nmbhY\n",
+    "iv": "JLsi5n253q3CTgJNutQ20A==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "username": {
+    "encrypted_data": "LahpnAbkpyKvV6/PryEDLyWylKPWxbjw+lrQvPXeP2PoOzYFDSYl1RMZfy3b\nbr/B\n",
+    "iv": "GxDnWnFVz7SkcnsUGO0stg==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "password": {
-    "encrypted_data": "9wMtJ193Rh+NVUyNEvPs/7t9qOkom8SAYsru35wlZUXVrCBSI4J5y5YLdIBN\nPn2V\n",
-    "iv": "Hgih9AxuWKaJKWB/+ALnEQ==\n",
+    "encrypted_data": "haBCqoD9AoB33Mw9TrtiqzdT8gPFYMYpwNDeWo15wAUzMTFjQlCDYm8AruKh\nHFqE\n",
+    "iv": "xw7VeoHhOhPpyhhlYhDk/A==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "usestarttls": {
+    "encrypted_data": "1is3KrMLnFZ+9UaM79TUQDipwl6qkyIm7ikHr8VOn0A=\n",
+    "iv": "hAt4BQuEQi1Eh7VP5xhuKA==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   }
