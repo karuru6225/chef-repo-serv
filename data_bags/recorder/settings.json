@@ -1,38 +1,38 @@
 {
   "id": "settings",
   "install_url": {
-    "encrypted_data": "gfUnVmw0d2KvpPjBlAPPhme040cIOzxEmf4dt8wBh7FyIX+HTRnvR5qhXukx\nM2OB\n",
-    "iv": "lmXtlzZE0r+OvlwaOUcmoQ==\n",
+    "encrypted_data": "hVBYW7yKkWgkLFUIewU6vbuL+G0E1GuhUzQmgzV5ICe4FHl/1UUeg5Q/nyl9\nWhGz\n",
+    "iv": "T4+HDP195KFFasUMGL+2gw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "bs_tuners": {
-    "encrypted_data": "4moHeT8KOUhwKy39Oco0TT7lypyIoCe2+KVagj+2T9c=\n",
-    "iv": "CaiYS6Ewp1DB2K4kkX6P/Q==\n",
+    "encrypted_data": "qccJaZ2Fdtd1BxWadKLWrHEPRj90SbW66W9PiuqCRck=\n",
+    "iv": "dTE1Ph8r9UqPZ2KTYxxHpA==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "gr_tuners": {
-    "encrypted_data": "+RVoHpjnNbQ4kTN3wC3pkqnCQt/snUylGZwCqnUsmiM=\n",
-    "iv": "W/xanKcoGLdfz1/HQD+nug==\n",
+    "encrypted_data": "i/wTvfIOYr4X7C1Ge93F0s9c3VA/6t6G7wsgIeiOaNs=\n",
+    "iv": "iBFjFyGhMm3eGVF3KakOiw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "db_host": {
-    "encrypted_data": "GsQreaJ/AFEsdcMgbbXqWa9Wyy7C7V8fN7tfYTnK0JQ=\n",
-    "iv": "QigJvJQE9DYONC+Hh/tSSQ==\n",
+    "encrypted_data": "qp8J4lFmloOmRM8/+ZnUYd+zKpmHT5H4YxwcVDEL454=\n",
+    "iv": "y00dqE0Ov6nSu4evWcqbjg==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "db_name": {
-    "encrypted_data": "U58j2I2Y+cZkg/ij7DHDZXacn7HMmqRjhfRueKfzYyA=\n",
-    "iv": "4XU8oXEcPawrpZbNEofF7Q==\n",
+    "encrypted_data": "jOcjsRjCXaG1B7jyw51Qrvdx6b4lUqXGtqDIm5DKRhQ=\n",
+    "iv": "kDg2CdlV8lwaHGxaTgtoGg==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "db_user": {
-    "encrypted_data": "j2u/WWFZOqQ4VRDY3XvJEBy1Xf7JlY2wgArtxH4tnzE=\n",
-    "iv": "wa/wL76DNYnseyBYLFXRhQ==\n",
+    "encrypted_data": "voFXaETPpyMNgsfIDw9zXtWu5VZmIbOG6EisuhQXH3U=\n",
+    "iv": "s7/x51TVqL3D9zzSdyJnDw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   }

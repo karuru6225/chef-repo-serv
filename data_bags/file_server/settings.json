@@ -1,0 +1,27 @@
+{
+  "id": "settings",
+  "iscsi_iqn": {
+    "encrypted_data": "tkOBiDlnYB0PeL8SJoozWX8hOGtZHHl0Gosxpcfv9UjZAmXr1wgp/pDvQGlu\njJgnYRYhMHf52cdFXkf3v5hSqg==\n",
+    "iv": "M5pofnRROeqDBPeyTlMbKg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "iscsi_device": {
+    "encrypted_data": "ma1SDjylTc3nKjWHOrQ5kB/ch2ZNm+Kvo8G7AemptyENsJydc/eGmVNOWRoq\nUUXl\n",
+    "iv": "Tg1X9oSM59IyOBwYTIH1sg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "iscsi_user": {
+    "encrypted_data": "vEsKVl3cXpMDmys3WnYMx++7aMTtwXTs0a49QwYGKhg=\n",
+    "iv": "+nGjSl+JsqzBGXpbWB3itg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "iscsi_password": {
+    "encrypted_data": "EruXaqCnIiAwt/dOejhXhBE5SCM2Y3D7gNlRgu/NgwI=\n",
+    "iv": "ugYHgDppMmJyp4eRc9TeFg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

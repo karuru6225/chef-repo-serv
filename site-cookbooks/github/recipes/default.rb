@@ -27,6 +27,7 @@ end
 
 execute 'download key' do
 	command 'wget '+settings['key_url']+' -O /root/.ssh/'+settings['filename']
+	not_if { File.exists?('/root/.ssh/'+settings['filename']) }
 end
 
 file "/root/.ssh/"+settings['filename'] do

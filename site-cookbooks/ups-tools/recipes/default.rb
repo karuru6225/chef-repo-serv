@@ -28,3 +28,19 @@ cookbook_file '/etc/pwrstatd.conf' do
 	mode '0644'
 	notifies :restart, 'service[pwrstatd]', :delayed
 end
+
+cookbook_file '/etc/pwrstatd-powerfail.sh' do
+	source 'pwrstatd-powerfail.sh'
+	owner 'root'
+	group 'root'
+	mode '0744'
+	notifies :restart, 'service[pwrstatd]', :delayed
+end
+
+cookbook_file '/etc/pwrstatd-lowbatt.sh' do
+	source 'pwrstatd-lowbatt.sh'
+	owner 'root'
+	group 'root'
+	mode '0744'
+	notifies :restart, 'service[pwrstatd]', :delayed
+end

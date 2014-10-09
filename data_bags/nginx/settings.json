@@ -1,0 +1,15 @@
+{
+  "id": "settings",
+  "crt_url": {
+    "encrypted_data": "Xtb76xqK+1sLJ7DTJnDODOPweLGtab+z1rQeFcnszVcWCiVPUwanonypzsXC\nrp2TSqpDFAjHOMUl8nBIC5aZcfA/wTzXB++cOCRIti0Hvcw=\n",
+    "iv": "usC9BTNYc1DV5rIjDQxRXA==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "key_url": {
+    "encrypted_data": "1ON9xzvPxy72TGvAAYSzFg6Mhcp3dZK4nhlQgJC8Q79+iJvqYJ/KxMHipzwD\nCOkyhneDKhpecyAoiNu3KXs5yUWyDrCSdrd9u9hhniC4W9g=\n",
+    "iv": "lRyNgRe1YxxIeOEU4GS9+g==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

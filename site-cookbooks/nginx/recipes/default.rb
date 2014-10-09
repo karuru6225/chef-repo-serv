@@ -38,3 +38,24 @@ cookbook_file '/etc/nginx/sites-enabled/000-main.conf' do
 	mode '0644'
 	notifies :restart, 'service[nginx]', :delayed
 end
+
+execute 'install h5ai' do
+	command <<-EOC
+		rm -rf /tmp/chef-nginx
+		mkdir /tmp/chef-nginx
+		cd /tmp/chef-nginx
+
+		wget https://www.dropbox.com/s/we299qs6eoi7l98/h5ai-0.26.1.zip
+
+		unzip h5ai-0.26.1.zip -d /var/www/
+	EOC
+end
+
+cookbook_file '/var/www/.htpasswd' do
+	source 'htpasswd'
+	owner 'root'
+	group 'root'
+	mode '0644'
+	notifies :restart, 'service[nginx]', :delayed
+end
+
