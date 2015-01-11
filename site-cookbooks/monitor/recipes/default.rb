@@ -20,7 +20,7 @@ cookbook_file '/etc/default/sysstat' do
 	source 'sysstat'
 end
 
-cookbook_file '/etc/default/diskmon' do
+cookbook_file '/etc/cron.d/diskmon' do
 	owner 'root'
 	group 'root'
 	mode '0644'
