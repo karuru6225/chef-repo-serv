@@ -21,7 +21,7 @@ file "/etc/cron.d/ntpdate" do
 	owner 'root'
 	group 'root'
 	mode 0644
-	content "43 * * * * root ntpdate ntp.jst.mfeed.ad.jp"
+	content "43 * * * * root /usr/sbin/ntpdate ntp.jst.mfeed.ad.jp"
 end
 
 package 'linux-headers-' + node[:os_version] do
@@ -197,3 +197,17 @@ cookbook_file '/etc/cron.d/shepherd' do
 	group 'root'
 	mode '0644'
 end
+
+directory "/home/karuru/mysqlbackup" do
+	owner 'root'
+	group 'root'
+	mode 0600
+end
+
+file "/etc/cron.d/mysqlbackup" do
+	owner 'root'
+	group 'root'
+	mode 0644
+	content "26 13 * * * root /usr/bin/mysqldump -u root -p" + node.set['mysql']['server_root_password'] + " epgrec > /home/karuru/mysqlbackup/epgrec_`date +\\%s`.sql\n"
+end
+

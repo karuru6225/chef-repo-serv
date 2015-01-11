@@ -1,0 +1,2 @@
+38 10 * * * root /usr/bin/find /dev/ -name 'sd?' | /usr/bin/xargs --max-args=1 /usr/sbin/smartctl -a | /bin/grep -E '(Reallocated|Seek_Error|Device Model|Current_Pending_Sector|INFORMATION)' | mail -s 'server_log diskmon' root
+ 
