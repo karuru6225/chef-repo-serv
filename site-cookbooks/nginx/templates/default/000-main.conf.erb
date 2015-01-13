@@ -1,0 +1,118 @@
+server {
+  listen 80 default_server;
+  root /var/www;
+  index index.html index.htm index.php /_h5ai/server/php/index.php;
+  #index index.html index.htm index.php;
+  server_name <%= @domain %>;
+  location / {
+		try_files $uri $uri/ /index.html;
+		autoindex on;
+
+		location ~ .php$ {
+			fastcgi_split_path_info ^(.+.php)(/.+)$;
+			fastcgi_pass unix:/var/run/php5-fpm.sock;
+			fastcgi_index index.php;
+			include fastcgi_params;
+		}
+	}
+
+	location /epgrec {
+		try_files $uri $uri/ /index.html;
+		autoindex on;
+
+		deny <%= @lan_addr %>.1;
+		allow <%= @lan_addr %>.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		location ~ .php$ {
+			fastcgi_split_path_info ^(.+.php)(/.+)$;
+			fastcgi_pass unix:/var/run/php5-fpm.sock;
+			fastcgi_index index.php;
+			include fastcgi_params;
+		}
+
+	}
+
+	location /hos {
+		autoindex on;
+
+		deny <%= @lan_addr %>.1;
+		allow <%= @lan_addr %>.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		location ~ .php$ {
+			fastcgi_split_path_info ^(.+.php)(/.+)$;
+			fastcgi_pass unix:/var/run/php5-fpm.sock;
+			fastcgi_index index.php;
+			include fastcgi_params;
+		}
+
+	}
+
+	location /karuru {
+		autoindex on;
+
+		deny <%= @lan_addr %>.1;
+		allow <%= @lan_addr %>.0/24;
+		allow 127.0.0.1;
+		deny all;
+	}
+
+	location /karuru/pub {
+		autoindex on;
+
+		satisfy any;
+		allow <%= @lan_addr %>.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		auth_basic "Files";
+		auth_basic_user_file "/var/www/.htpasswd";
+	}
+}
+
+server {
+	listen 443 ssl;
+	ssl on;
+
+	ssl_certificate "/etc/nginx/ssl/<%= @domain %>.crt";
+	ssl_certificate_key "/etc/nginx/ssl/<%= @domain %>.key";
+
+  root /var/www;
+  index index.html index.htm index.php;
+  server_name <%= @domain %>;
+  location / {
+		try_files $uri $uri/ /index.html;
+		autoindex on;
+
+		location ~ .php$ {
+			fastcgi_split_path_info ^(.+.php)(/.+)$;
+			fastcgi_pass unix:/var/run/php5-fpm.sock;
+			fastcgi_index index.php;
+			include fastcgi_params;
+		}
+	}
+
+	location /karuru {
+		autoindex on;
+
+		deny <%= @lan_addr %>.1;
+		allow <%= @lan_addr %>.0/24;
+		allow 127.0.0.1;
+		deny all;
+	}
+
+	location /karuru/pub {
+		autoindex on;
+
+		satisfy any;
+		allow <%= @lan_addr %>.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		auth_basic "Files";
+		auth_basic_user_file "/var/www/.htpasswd";
+	}
+}

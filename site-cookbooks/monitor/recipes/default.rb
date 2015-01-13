@@ -20,6 +20,20 @@ cookbook_file '/etc/default/sysstat' do
 	source 'sysstat'
 end
 
+cookbook_file '/usr/local/bin/monitor.sh' do
+	owner 'root'
+	group 'staff'
+	mode '0755'
+	source 'monitor.sh'
+end
+
+cookbook_file '/usr/local/bin/diskmon.sh' do
+	owner 'root'
+	group 'staff'
+	mode '0744'
+	source 'diskmon.sh'
+end
+
 cookbook_file '/etc/cron.d/diskmon' do
 	owner 'root'
 	group 'root'

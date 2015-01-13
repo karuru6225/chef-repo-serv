@@ -17,11 +17,11 @@ include_recipe 'php::default'
 	end
 }
 
-file "/etc/cron.d/ntpdate" do
+cookbook_file "/etc/cron.d/ntpdate" do
 	owner 'root'
 	group 'root'
 	mode 0644
-	content "43 * * * * root /usr/sbin/ntpdate ntp.jst.mfeed.ad.jp"
+	source "ntpdate"
 end
 
 package 'linux-headers-' + node[:os_version] do
@@ -204,10 +204,13 @@ directory "/home/karuru/mysqlbackup" do
 	mode 0600
 end
 
-file "/etc/cron.d/mysqlbackup" do
+template "/etc/cron.d/mysqlbackup" do
 	owner 'root'
 	group 'root'
 	mode 0644
-	content "26 13 * * * root /usr/bin/mysqldump -u root -p" + node.set['mysql']['server_root_password'] + " epgrec > /home/karuru/mysqlbackup/epgrec_`date +\\%s`.sql\n"
+	source 'mysqlbackup.erb'
+	variables({
+		:db_pass => password['root']
+	})
 end
 

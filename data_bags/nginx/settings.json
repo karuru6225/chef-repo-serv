@@ -1,14 +1,26 @@
 {
   "id": "settings",
   "crt_url": {
-    "encrypted_data": "Xtb76xqK+1sLJ7DTJnDODOPweLGtab+z1rQeFcnszVcWCiVPUwanonypzsXC\nrp2TSqpDFAjHOMUl8nBIC5aZcfA/wTzXB++cOCRIti0Hvcw=\n",
-    "iv": "usC9BTNYc1DV5rIjDQxRXA==\n",
+    "encrypted_data": "0Rr2IttngUy0s2TACwatJpfisxvm5dXw1Ar1FXjQGVzuVMyYfcbcQxmvN1VL\nX0bDI7qZh4H/rkvBcujAmwcYAHtIKNmKINZ3U5+0DVWFm40=\n",
+    "iv": "WPofgQyeXCPmK4itTWfasg==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "key_url": {
-    "encrypted_data": "1ON9xzvPxy72TGvAAYSzFg6Mhcp3dZK4nhlQgJC8Q79+iJvqYJ/KxMHipzwD\nCOkyhneDKhpecyAoiNu3KXs5yUWyDrCSdrd9u9hhniC4W9g=\n",
-    "iv": "lRyNgRe1YxxIeOEU4GS9+g==\n",
+    "encrypted_data": "MJPRpJ8sbxfPqStZL/+cHSOkLlOnHwV8kyfMA4Cekk0vmfXZEhSpP0ajtEkg\nwkp2K9J41RfE+JXhSl4Z3wyLesO3DmRtSmtBMEjz0UC8SCk=\n",
+    "iv": "L0lcfbuFsvC862H5CX7kIQ==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "domain": {
+    "encrypted_data": "6PooFbBYOmMpTAlq+hJ+2K0CzxrhwYvH0utJw0IY/nQ=\n",
+    "iv": "Bl3kCrPZD63jqutSVdRL2w==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "lan_addr": {
+    "encrypted_data": "AE5newgJgwNhl6hYM39TqGiUHx3OrqQE8KoUoabrtZo=\n",
+    "iv": "wDvkXSyMmhk58Dw4rSsMcA==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   }

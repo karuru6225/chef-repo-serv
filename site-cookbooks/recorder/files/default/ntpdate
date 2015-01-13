@@ -1,2 +1,2 @@
-43 * * * * root ntpdate ntp.jst.mfeed.ad.jp
+43 4/* * * * root /usr/sbin/ntpdate ntp.jst.mfeed.ad.jp
 
