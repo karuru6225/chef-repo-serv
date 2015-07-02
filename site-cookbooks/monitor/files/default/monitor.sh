@@ -12,10 +12,10 @@ sar -d -p 1 1 | grep 秒 | grep -v md | awk '{ print $2" "$3" "$4" "$5 }' | colu
 #	echo ""
 #fi
 echo ""
-df -P -h /dev/mapper/VG* | column -t -s\ 
+df -h | grep VG0 | column -t -s\ 
 echo ""
 for i in /dev/sd?; do smartctl --all ${i} | grep '^194' | awk "{print \"${i} Temp:\" \$10}"; done && echo ""
 # vmstat && echo ""
-vmstat | head -n 1; vmstat | tail -n 2 | column -t -s\ 
+#vmstat | head -n 1; vmstat | tail -n 2 | column -t -s\ 
 echo ""
-pwrstat -status | grep Load | awk '{ print $2 " " $3 $4 }'
+# pwrstat -status | grep Load | awk '{ print $2 " " $3 $4 }'

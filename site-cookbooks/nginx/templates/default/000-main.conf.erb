@@ -1,10 +1,10 @@
 server {
-  listen 80 default_server;
-  root /var/www;
-  index index.html index.htm index.php /_h5ai/server/php/index.php;
-  #index index.html index.htm index.php;
-  server_name <%= @domain %>;
-  location / {
+	listen 80 default_server;
+	root /var/www;
+	#index index.html index.htm index.php /_h5ai/server/php/index.php;
+	index index.html index.htm index.php;
+	server_name <%= @domain %>;
+	location / {
 		try_files $uri $uri/ /index.html;
 		autoindex on;
 
@@ -70,6 +70,10 @@ server {
 
 		auth_basic "Files";
 		auth_basic_user_file "/var/www/.htpasswd";
+	}
+
+	location /karuru/wwwmovie {
+		autoindex on;
 	}
 }
 
