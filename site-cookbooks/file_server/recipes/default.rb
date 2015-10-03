@@ -61,4 +61,18 @@ when "debian"
 		source "smb.conf"
 		notifies :restart, "service[samba]", :delayed
 	end
+
+	cookbook_file "/etc/cron.daily/del_dsstore.sh" do
+		owner "root"
+		group "root"
+		mode "0755"
+		source "del_dsstore.sh"
+	end
+
+	cookbook_file "/etc/network/interfaces" do
+		owner "root"
+		group "root"
+		mode "0644"
+		source "interfaces"
+	end
 end

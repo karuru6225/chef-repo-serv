@@ -208,9 +208,18 @@ template "/etc/cron.d/mysqlbackup" do
 	owner 'root'
 	group 'root'
 	mode 0644
-	source 'mysqlbackup.erb'
+	source 'mysqlbackup.cron.erb'
 	variables({
 		:db_pass => password['root']
 	})
 end
 
+template "/usr/local/bin/mysqlbackup" do
+	owner 'root'
+	group 'root'
+	mode 0700
+	source 'mysqlbackup.sh.erb'
+	variables({
+		:db_pass => password['root']
+	})
+end

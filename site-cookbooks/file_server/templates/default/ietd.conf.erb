@@ -32,9 +32,11 @@
 # "yyyy-mm" is the date at which the domain is valid and the identifier
 # is freely selectable. For further details please check the iSCSI spec.
 
-Target <%= @iscsi_iqn %>
-	Lun 0 Path=<%= @iscsi_device %>
-#	IncomingUser <%= @iscsi_user %> <%= @iscsi_password %>
+Target iqn.2010-09.info.karuru:vmstorage
+	Lun 0 Path=/dev/VG01/vmstorage
+
+#Target iqn.2010-09.info.karuru:vmstrage02
+#	Lun 0 Path=/dev/VG02/lvol0
 
 #Target iqn.2001-04.com.example:storage.disk2.sys1.xyz
 	# CHAP Users

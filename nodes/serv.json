@@ -9,7 +9,6 @@
 		"recipe[file_server]",
 		"recipe[github]",
 		"recipe[recorder]",
-		"recipe[ups-tools]",
 		"recipe[monitor]",
 		"recipe[ssmtp]",
 		"recipe[tmux]"

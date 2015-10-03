@@ -19,3 +19,4 @@ for i in /dev/sd?; do smartctl --all ${i} | grep '^194' | awk "{print \"${i} Tem
 #vmstat | head -n 1; vmstat | tail -n 2 | column -t -s\ 
 echo ""
 # pwrstat -status | grep Load | awk '{ print $2 " " $3 $4 }'
+sensors 2>&1 | grep Core
