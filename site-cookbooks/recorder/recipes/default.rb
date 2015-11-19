@@ -153,16 +153,16 @@ end
 
 execute 'epgrec' do
 	command <<-EOC
-		cd /var/www
+		mkdir -p /var/www/epgrec
 
-		wget https://www.dropbox.com/s/0vpmssp00paznxu/epgrec_UNA_140427.tar.gz
-		tar xzf epgrec_UNA_140427.tar.gz
-		rm -rf epgrec_UNA_140427.tar.gz
-		mv epgrec_UNA_140427 epgrec
-		chown -R www-data:www-data epgrec
+		cd /tmp
+		wget https://www.dropbox.com/s/aacd1silyfr37ea/epgrec_karuru_151004.tar.bz
+		tar xjf epgrec_karuru_151004.tar.bz -C /var/www/epgrec
+		rm -f epgrec_karuru_151004.tar.bz
+		chown -R www-data:www-data /var/www/epgrec
 
-		cd epgrec
-		chmod 777 cache templates_c video thumbs settings
+		cd /var/www/epgrec
+		chmod 777 cache templates_c settings
 	EOC
 	not_if "test -d /var/www/epgrec"
 end
