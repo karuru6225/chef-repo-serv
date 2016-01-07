@@ -102,6 +102,11 @@ server {
 	location /karuru {
 		autoindex on;
 
+		satisfy any;
+
+		auth_basic "karuru";
+		auth_basic_user_file "/var/www/.htkaruru";
+
 		deny <%= @lan_addr %>.1;
 		allow <%= @lan_addr %>.0/24;
 		allow 127.0.0.1;

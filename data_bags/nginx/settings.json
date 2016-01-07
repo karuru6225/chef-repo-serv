@@ -1,26 +1,32 @@
 {
   "id": "settings",
   "crt_url": {
-    "encrypted_data": "0Rr2IttngUy0s2TACwatJpfisxvm5dXw1Ar1FXjQGVzuVMyYfcbcQxmvN1VL\nX0bDI7qZh4H/rkvBcujAmwcYAHtIKNmKINZ3U5+0DVWFm40=\n",
-    "iv": "WPofgQyeXCPmK4itTWfasg==\n",
+    "encrypted_data": "X6Q8DHEGLTPAdcODXazrN9KeKeAvLarzN0ATjD7SzBRewUrn3519Ea6LrF3I\n7U2XMijOp5plshb9Cog6HnDQp25QMq9C7SPB28Tfq8kk2r0=\n",
+    "iv": "tx5q4v5qWQYyVF2MmWIDaw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "key_url": {
-    "encrypted_data": "MJPRpJ8sbxfPqStZL/+cHSOkLlOnHwV8kyfMA4Cekk0vmfXZEhSpP0ajtEkg\nwkp2K9J41RfE+JXhSl4Z3wyLesO3DmRtSmtBMEjz0UC8SCk=\n",
-    "iv": "L0lcfbuFsvC862H5CX7kIQ==\n",
+    "encrypted_data": "I8xNcevlokK01VE/+xmlpDgFIMPaaoynHh3WkwgPIUxTa1jeFAZLfidmUJFc\nZEIAgZhN1XAiaLWteThyjctGHn4r/9p/Z1l8PDWIWEQe+nA=\n",
+    "iv": "s2uIQlr0RpfUkVb9Xz63TQ==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "favicon": {
+    "encrypted_data": "amJdW0/MlaDU8pLf466HqW+T72mBdo0VN+xnfzFWrzIWEQBoeyfeBkhlx6cG\nzkKSpWUMUA61ff4CaU8oFgR2lcExQRRdP49jbONjeIRYb/Y=\n",
+    "iv": "jT3GNGaV9CvJ2eSEY11zww==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "domain": {
-    "encrypted_data": "6PooFbBYOmMpTAlq+hJ+2K0CzxrhwYvH0utJw0IY/nQ=\n",
-    "iv": "Bl3kCrPZD63jqutSVdRL2w==\n",
+    "encrypted_data": "88XC2l77zI7vmMayoo8mHiggqipxEpFvvIy6wjCBzqg=\n",
+    "iv": "E+q1kI6i7RgousozGaLEBQ==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "lan_addr": {
-    "encrypted_data": "AE5newgJgwNhl6hYM39TqGiUHx3OrqQE8KoUoabrtZo=\n",
-    "iv": "wDvkXSyMmhk58Dw4rSsMcA==\n",
+    "encrypted_data": "ARQdHRiVfZJwD3WdvcPKFLJTcKecJqOHUuoOlDIC9/E=\n",
+    "iv": "GwWLNzZYh+dIstFa77lvJg==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   }

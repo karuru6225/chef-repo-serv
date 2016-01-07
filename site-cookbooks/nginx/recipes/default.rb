@@ -43,3 +43,37 @@ template '/etc/nginx/sites-enabled/000-main.conf' do
 	})
 	notifies :restart, 'service[nginx]', :delayed
 end
+
+remote_file '/var/www/favicon.ico' do
+	source settings['favicon']
+	owner 'www-data'
+	group 'www-data'
+	mode 00644
+	action :create
+end
+
+directory '/etc/nginx/ssl' do
+	owner 'www-data'
+	group 'www-data'
+	mode 00700
+	action :create
+end
+
+remote_file '/etc/nginx/ssl/' + settings['domain'] + '.crt' do
+	source settings['crt_url']
+	owner 'www-data'
+	group 'www-data'
+	mode 00600
+	action :create
+	notifies :restart, 'service[nginx]', :delayed
+end
+
+remote_file '/etc/nginx/ssl/' + settings['domain'] + '.key' do
+	source settings['key_url']
+	owner 'www-data'
+	group 'www-data'
+	mode 00600
+	action :create
+	notifies :restart, 'service[nginx]', :delayed
+end
+

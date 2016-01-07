@@ -9,6 +9,7 @@
 
 include_recipe 'nginx::default'
 include_recipe 'php::default'
+include_recipe 'database::default'
 
 
 %w(pcscd libpcsclite1 libpcsclite-dev libccid pcsc-tools git build-essential autoconf unzip pkg-config ntpdate ffmpeg).each{|name|
@@ -132,25 +133,6 @@ execute 'edit at.deny' do
 end
 
 
-password = Chef::EncryptedDataBagItem.load("mysql", "password");
-node.set['mysql']['server_root_password'] = password['root']
-node.set['mysql']['version'] = '5.5'
-node.set['mysql']['port'] = '3306'
-node.set['mysql']['port'] = '3306'
-
-include_recipe 'mysql::server'
-
-execute 'create database' do
-	command "mysql -u root -p" + password['root'] + " -e 'create database epgrec'"
-	not_if "mysql -u root -p" + password['root'] + " -e 'show databases' | grep epgrec"
-end
-
-execute 'create user' do
-	command "mysql -u root -p" + password['root'] + " -D mysql -e \"grant all on epgrec.* to epgrec@localhost identified by '" + password['epgrec']  + "'\""
-	not_if "mysql -u root -p" + password['root'] + " -D mysql -e 'select User from user' | grep epgrec"
-	notifies :restart, "mysql_service[default]", :delayed
-end
-
 execute 'epgrec' do
 	command <<-EOC
 		mkdir -p /var/www/epgrec
@@ -172,6 +154,19 @@ cookbook_file '/var/www/epgrec/config.php' do
 	owner 'www-data'
 	group 'www-data'
 	mode '0755'	
+end
+
+password = Chef::EncryptedDataBagItem.load("mysql", "password");
+
+execute 'create database' do
+	command "mysql -u root -p" + password['root'] + " -e 'create database epgrec'"
+	not_if "mysql -u root -p" + password['root'] + " -e 'show databases' | grep epgrec"
+end
+
+execute 'create user' do
+	command "mysql -u root -p" + password['root'] + " -D mysql -e \"grant all on epgrec.* to epgrec@localhost identified by '" + password['epgrec']  + "'\""
+	not_if "mysql -u root -p" + password['root'] + " -D mysql -e 'select User from user' | grep epgrec"
+	notifies :restart, "mysql_service[default]", :delayed
 end
 
 settings = Chef::EncryptedDataBagItem.load("recorder", "settings");
@@ -198,28 +193,3 @@ cookbook_file '/etc/cron.d/shepherd' do
 	mode '0644'
 end
 
-directory "/home/karuru/mysqlbackup" do
-	owner 'root'
-	group 'root'
-	mode 0600
-end
-
-template "/etc/cron.d/mysqlbackup" do
-	owner 'root'
-	group 'root'
-	mode 0644
-	source 'mysqlbackup.cron.erb'
-	variables({
-		:db_pass => password['root']
-	})
-end
-
-template "/usr/local/bin/mysqlbackup" do
-	owner 'root'
-	group 'root'
-	mode 0700
-	source 'mysqlbackup.sh.erb'
-	variables({
-		:db_pass => password['root']
-	})
-end

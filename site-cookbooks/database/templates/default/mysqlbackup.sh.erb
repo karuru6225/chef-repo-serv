@@ -1,0 +1,5 @@
+/usr/bin/mysqldump -u root -p<%= @db_pass %> -x --all-databases > /home/karuru/mysqlbackup/mysql_`date +\%s`.sql
+for f in `ls -1t /home/karuru/mysqlbackup/ | tail -n +90`;
+do
+	rm -vf /home/karuru/mysqlbackup/${f};
+done
