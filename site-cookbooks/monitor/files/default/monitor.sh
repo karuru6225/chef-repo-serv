@@ -13,6 +13,7 @@ sar -d -p 1 1 | grep 秒 | grep -v md | awk '{ print $2" "$3" "$4" "$5 }' | sort
 #fi
 echo ""
 df -h | grep VG0 | column -t -s\ 
+df -h | grep backup | column -t -s\ 
 echo ""
 for i in /dev/sd?; do smartctl --all ${i} | grep '^194' | awk "{print \"${i} Temp:\" \$10}"; done && echo ""
 # vmstat && echo ""
@@ -20,3 +21,5 @@ for i in /dev/sd?; do smartctl --all ${i} | grep '^194' | awk "{print \"${i} Tem
 echo ""
 # pwrstat -status | grep Load | awk '{ print $2 " " $3 $4 }'
 sensors 2>&1 | grep Core
+echo ""
+cat /proc/mdstat

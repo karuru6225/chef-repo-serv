@@ -1,0 +1,176 @@
+server {
+	listen 443 default_server;
+	server_name karuru.info;
+	ssl on;
+	ssl_certificate /etc/letsencrypt/live/karuru.info/cert.pem;
+	ssl_certificate_key /etc/letsencrypt/live/karuru.info/privkey.pem;
+	root /var/www;
+	access_log  /var/log/nginx/ssl-access.log;
+
+	proxy_set_header Host $http_host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-Proto $scheme;
+	proxy_set_header X-Forwarded-Host $http_host;
+	proxy_set_header X-Forwarded-Server $host;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+	location / {
+		proxy_pass http://localhost:8080/;
+		proxy_redirect default;
+	}
+}
+
+server {
+	listen 80;
+	server_name karuru.info;
+	return 301 https://$host$request_uri;
+}
+
+server {
+	listen 8080;
+	root /var/www;
+	#index index.html index.htm index.php /_h5ai/server/php/index.php;
+	index index.html index.htm index.php;
+	server_name localhost;
+	location / {
+		try_files $uri $uri/ /index.html;
+		autoindex on;
+
+		location ~ .php$ {
+			fastcgi_split_path_info ^(.+.php)(/.+)$;
+			fastcgi_pass unix:/var/run/php5-fpm.sock;
+			fastcgi_index index.php;
+			include fastcgi_params;
+		}
+	}
+
+	location /epgrec {
+		try_files $uri $uri/ /index.html;
+		autoindex on;
+
+		#deny 192.168.62.1;
+		allow 192.168.62.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		location ~ .php$ {
+			fastcgi_split_path_info ^(.+.php)(/.+)$;
+			fastcgi_pass unix:/var/run/php5-fpm.sock;
+			fastcgi_index index.php;
+			include fastcgi_params;
+		}
+
+	}
+
+	location /hos {
+		autoindex on;
+
+		deny 192.168.62.1;
+		allow 192.168.62.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		location ~ .php$ {
+			fastcgi_split_path_info ^(.+.php)(/.+)$;
+			fastcgi_pass unix:/var/run/php5-fpm.sock;
+			fastcgi_index index.php;
+			include fastcgi_params;
+		}
+
+	}
+
+	location /karuru {
+		autoindex on;
+
+		deny 192.168.62.1;
+		allow 192.168.62.0/24;
+		allow 127.0.0.1;
+		deny all;
+	}
+
+	location /karuru/pub {
+		autoindex on;
+
+		satisfy any;
+		allow 192.168.62.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		auth_basic "Files";
+		auth_basic_user_file "/var/www/.htpasswd";
+	}
+
+	location /webcam.html {
+		satisfy any;
+		allow 192.168.62.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		auth_basic "Files";
+		auth_basic_user_file "/var/www/.htpasswdwebcam";
+	}
+
+	location /webcam.jpg {
+		satisfy any;
+		allow 192.168.62.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		auth_basic "Files";
+		auth_basic_user_file "/var/www/.htpasswdwebcam";
+		proxy_pass http://localhost:8081/;
+	}
+
+	location /karuru/wwwmovie {
+		autoindex on;
+	}
+}
+
+server {
+	listen 443 ssl;
+	ssl on;
+
+	ssl_certificate "/etc/nginx/ssl/karuru.info.crt";
+	ssl_certificate_key "/etc/nginx/ssl/karuru.info.key";
+
+  root /var/www;
+  index index.html index.htm index.php;
+  server_name karuru.info;
+  location / {
+		try_files $uri $uri/ /index.html;
+		autoindex on;
+
+		location ~ .php$ {
+			fastcgi_split_path_info ^(.+.php)(/.+)$;
+			fastcgi_pass unix:/var/run/php5-fpm.sock;
+			fastcgi_index index.php;
+			include fastcgi_params;
+		}
+	}
+
+	location /karuru {
+		autoindex on;
+
+		satisfy any;
+
+		auth_basic "karuru";
+		auth_basic_user_file "/var/www/.htkaruru";
+
+		deny 192.168.62.1;
+		allow 192.168.62.0/24;
+		allow 127.0.0.1;
+		deny all;
+	}
+
+	location /karuru/pub {
+		autoindex on;
+
+		satisfy any;
+		allow 192.168.62.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		auth_basic "Files";
+		auth_basic_user_file "/var/www/.htpasswd";
+	}
+}

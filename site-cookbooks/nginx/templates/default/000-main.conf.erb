@@ -1,9 +1,37 @@
 server {
-	listen 80 default_server;
+	listen 443 default_server;
+	server_name <%= @domain %>;
+	ssl on;
+	ssl_certificate /etc/letsencrypt/live/<%= @domain %>/cert.pem;
+	ssl_certificate_key /etc/letsencrypt/live/<%= @domain %>/privkey.pem;
+	root /var/www;
+	access_log  /var/log/nginx/ssl-access.log;
+
+	proxy_set_header Host $http_host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-Proto $scheme;
+	proxy_set_header X-Forwarded-Host $http_host;
+	proxy_set_header X-Forwarded-Server $host;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+	location / {
+		proxy_pass http://localhost:8080/;
+		proxy_redirect default;
+	}
+}
+
+server {
+	listen 80;
+	server_name <%= @domain %>;
+	return 301 https://$host$request_uri;
+}
+
+server {
+	listen 8080;
 	root /var/www;
 	#index index.html index.htm index.php /_h5ai/server/php/index.php;
 	index index.html index.htm index.php;
-	server_name <%= @domain %>;
+	server_name localhost;
 	location / {
 		try_files $uri $uri/ /index.html;
 		autoindex on;
@@ -20,7 +48,7 @@ server {
 		try_files $uri $uri/ /index.html;
 		autoindex on;
 
-		deny <%= @lan_addr %>.1;
+		#deny <%= @lan_addr %>.1;
 		allow <%= @lan_addr %>.0/24;
 		allow 127.0.0.1;
 		deny all;
@@ -72,11 +100,33 @@ server {
 		auth_basic_user_file "/var/www/.htpasswd";
 	}
 
+	location /webcam.html {
+		satisfy any;
+		allow <%= @lan_addr %>.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		auth_basic "Files";
+		auth_basic_user_file "/var/www/.htpasswdwebcam";
+	}
+
+	location /webcam.jpg {
+		satisfy any;
+		allow <%= @lan_addr %>.0/24;
+		allow 127.0.0.1;
+		deny all;
+
+		auth_basic "Files";
+		auth_basic_user_file "/var/www/.htpasswdwebcam";
+		proxy_pass http://localhost:8081/;
+	}
+
 	location /karuru/wwwmovie {
 		autoindex on;
 	}
 }
 
+<% if false %>
 server {
 	listen 443 ssl;
 	ssl on;
@@ -125,3 +175,4 @@ server {
 		auth_basic_user_file "/var/www/.htpasswd";
 	}
 }
+<% end %>

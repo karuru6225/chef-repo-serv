@@ -1,0 +1,6 @@
+VAL="`df -P -h /dev/mapper/VG* | grep -e 'mapper' | grep -v VG01 | awk '{ if(int($4) < 50 && $4 ~ /[0-9]*G/){ print $0; } }' | grep -e '[0-9]*G'`"
+
+if [ "${VAL}" != "" ]; then
+	echo "${VAL}" | mail -s '警告: 残り容量が50Gを下回るHDDが発生しました' root
+fi
+

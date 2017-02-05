@@ -8,7 +8,7 @@
 #
 
 include_recipe 'nginx::default'
-include_recipe 'php::default'
+#include_recipe 'php::default'
 include_recipe 'database::default'
 
 
@@ -166,7 +166,7 @@ end
 execute 'create user' do
 	command "mysql -u root -p" + password['root'] + " -D mysql -e \"grant all on epgrec.* to epgrec@localhost identified by '" + password['epgrec']  + "'\""
 	not_if "mysql -u root -p" + password['root'] + " -D mysql -e 'select User from user' | grep epgrec"
-	notifies :restart, "mysql_service[default]", :delayed
+	# notifies :restart, "mysql_service[default]", :delayed
 end
 
 settings = Chef::EncryptedDataBagItem.load("recorder", "settings");

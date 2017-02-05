@@ -8,11 +8,17 @@
 #
 
 password = Chef::EncryptedDataBagItem.load("mysql", "password");
-node.set['mysql']['server_root_password'] = password['root']
-node.set['mysql']['version'] = '5.5'
-node.set['mysql']['port'] = '3306'
 
-include_recipe 'mysql::server'
+package 'mysql-server-5.5' do
+	action :install
+end
+
+# mysql_service 'mysql' do
+# 	port '3306'
+# 	version '5.5'
+# 	initial_root_password password['root']
+# 	action [:create, :start]
+# end
 
 directory "/home/karuru/mysqlbackup" do
 	owner 'root'

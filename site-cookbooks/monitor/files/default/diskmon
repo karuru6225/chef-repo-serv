@@ -1,2 +1,2 @@
-38 10 * * * root /usr/bin/find /dev/ -name 'sd?' | /usr/bin/xargs --max-args=1 /usr/sbin/smartctl -a | /bin/grep -E '(Reallocated|Seek_Error|Device Model|Current_Pending_Sector|Offline_Uncorrectable|INFORMATION)' | mail -s 'server_log diskmon' root
+38 10 * * * root /usr/bin/find /dev/ -name 'sd?' | /usr/bin/xargs --max-args=1 /usr/sbin/smartctl -a | /bin/grep -E '(Reallocated|Seek_Error|Device Model|Serial Number|Current_Pending_Sector|Offline_Uncorrectable|Multi_Zone_Error_Rate|INFORMATION)' | mail -s 'server_log diskmon' root
 30/* * * * * root /usr/local/bin/diskmon.sh 

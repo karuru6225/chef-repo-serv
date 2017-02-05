@@ -1,9 +1,29 @@
 {
+	"openssh": {
+		"server": {
+			"permit_root_login": "no",
+			"password_authentication": "no"
+		}
+	},
+	"iptables": {
+		"lan_net": "192.168.62.0/24",
+		"accept_ports": [
+			80,
+			443
+		],
+		"accept_only_jp": [],
+		"drop_countries": [
+			"CN",
+			"KR",
+			"TW",
+			"HK",
+			"KP"
+		]
+	},
 	"run_list" : [
 		"recipe[ssh]",
 		"recipe[basic-packages]",
 		"recipe[bash]",
-		"recipe[vim]",
 		"recipe[users]",
 		"recipe[raid]",
 		"recipe[file_server]",
@@ -11,6 +31,7 @@
 		"recipe[recorder]",
 		"recipe[monitor]",
 		"recipe[ssmtp]",
-		"recipe[tmux]"
+		"recipe[tmux]",
+		"recipe[iptables]"
 	]
 }
