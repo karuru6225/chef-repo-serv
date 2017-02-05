@@ -3,3 +3,4 @@
 *.lock
 data_bag_key
 solo.rb
+.chef/local-mode-cache
