@@ -7,6 +7,9 @@ server {
 	root /var/www;
 	access_log  /var/log/nginx/ssl-access.log;
 
+	#index index.html index.htm index.php /_h5ai/server/php/index.php;
+	index index.html index.htm index.php;
+
 	proxy_set_header Host $http_host;
 	proxy_set_header X-Real-IP $remote_addr;
 	proxy_set_header X-Forwarded-Proto $scheme;
@@ -14,24 +17,6 @@ server {
 	proxy_set_header X-Forwarded-Server $host;
 	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
-	location / {
-		proxy_pass http://localhost:8080/;
-		proxy_redirect default;
-	}
-}
-
-server {
-	listen 80;
-	server_name <%= @domain %>;
-	return 301 https://$host$request_uri;
-}
-
-server {
-	listen 8080;
-	root /var/www;
-	#index index.html index.htm index.php /_h5ai/server/php/index.php;
-	index index.html index.htm index.php;
-	server_name localhost;
 	location / {
 		try_files $uri $uri/ /index.html;
 		autoindex on;
@@ -42,6 +27,11 @@ server {
 			fastcgi_index index.php;
 			include fastcgi_params;
 		}
+	}
+
+	location /proxy {
+		proxy_pass http://localhost:8080/;
+		proxy_redirect default;
 	}
 
 	location /epgrec {
@@ -124,6 +114,12 @@ server {
 	location /karuru/wwwmovie {
 		autoindex on;
 	}
+}
+
+server {
+	listen 80;
+	server_name <%= @domain %>;
+	return 301 https://$host$request_uri;
 }
 
 <% if false %>
